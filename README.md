@@ -8,18 +8,4 @@ echo por Valentin Rodriguez
 
 ## Dependencias Usadas
 
-@apollo/client,
-react-native-async-storage/async-storage,
-react-native-community/masked-view,
-react-navigation,
-apollo-cache-persist,
-formik,
-graphql,
-react-native,
-react-native-elements,
-react-native-vector-icons,
-yup
-
-## Arquitectura del Proyecto
-
-### "axios","node-sass","react-loading","react-redux","redux-saga","react-router-dom","redux-devtools","web-vitals","fontawesome".
+## "@apollo/client","react-native-async-storage/async-storage","react-native-community/masked-view","react-navigation","apollo-cache-persist","formik","graphql","react-native","react-native-elements","react-native-vector-icons","yup"
