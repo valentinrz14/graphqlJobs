@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     backgroundColor: BLUE,
     paddingVertical: 10,
     borderRadius: 8,
-    marginBottom: 30,
+    marginBottom: 20,
+    marginTop: 10,
   },
   btnPostulateTitle: {
     color: WHITE,

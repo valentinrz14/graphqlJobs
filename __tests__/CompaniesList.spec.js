@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import { MockedProvider } from '@apollo/client/testing';
 import { GraphQLError } from 'graphql';
 // Components
-import { CompaniesList } from '../src/screens/companies_list/';
+import CompaniesList from '../src/screens/companies_list/';
 // Queries
 import { GET_ALL_COMPANIES } from '../src/graphql/queries';
 
@@ -23,32 +23,8 @@ describe('CompaniesList', () => {
         <CompaniesList />
       </MockedProvider>,
     );
-    console.log(component.toJSON());
+
     expect(() => component.root.findByType('ActivityIndicator')).not.toThrow();
-  });
-
-  it('shows error', async () => {
-    const mockedError = {
-      request: {
-        query: GET_ALL_COMPANIES,
-      },
-      result: {
-        errors: [new GraphQLError('Oops we can not get companies')],
-      },
-    };
-    const component = renderer.create(
-      <MockedProvider mocks={[mockedError]} addTypename={false}>
-        <CompaniesList />
-      </MockedProvider>,
-    );
-
-    await wait();
-
-    expect(() => {
-      component.root.findByProps({
-        children: 'GraphQL error: Oops we can not get companies',
-      });
-    }).not.toThrow();
   });
 
   it('shows companies list', async () => {
@@ -58,7 +34,7 @@ describe('CompaniesList', () => {
       },
       result: {
         data: {
-          products: [
+          companies: [
             {
               id: 'cjtu8etmr001n0824o1v2qvgr',
               name: 'Apollo',
@@ -82,8 +58,6 @@ describe('CompaniesList', () => {
     );
 
     await wait();
-
-    console.log(component.toJSON());
     expect(() => {
       component.root.findByProps({
         children: 'Apollo',
@@ -92,6 +66,29 @@ describe('CompaniesList', () => {
     expect(() => {
       component.root.findByProps({
         children: 'Prisma',
+      });
+    }).not.toThrow();
+  });
+
+  it('should show error UI', async () => {
+    const mockedError = {
+      request: {
+        query: GET_ALL_COMPANIES,
+      },
+      errors: [new GraphQLError('Oops! we can not get companies')],
+    };
+
+    const component = renderer.create(
+      <MockedProvider mocks={[mockedError]} addTypename={false}>
+        <CompaniesList />
+      </MockedProvider>,
+    );
+
+    await wait(); // wait for response
+
+    expect(() => {
+      component.root.findAllByProps({
+        children: 'GraphQL error: Oops! we can not get companies',
       });
     }).not.toThrow();
   });

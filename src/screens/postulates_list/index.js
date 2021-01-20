@@ -13,7 +13,6 @@ import { GET_POSTULATE_JOBS_LIST } from '../../graphql/queries';
 
 const PostalatesList = ({ navigation }) => {
   const { data, loading, error, refetch } = useQuery(GET_POSTULATE_JOBS_LIST);
-  console.log('postulatesList', data);
 
   if (error) {
     return <ErrorData error={error} retry={refetch} />;

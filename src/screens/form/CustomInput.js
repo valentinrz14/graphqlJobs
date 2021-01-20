@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     height: 45,
     width: '100%',
-    marginVertical: 10,
+    marginVertical: 15,
     backgroundColor: 'white',
     borderColor: 'gray',
     borderWidth: StyleSheet.hairlineWidth,

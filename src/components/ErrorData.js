@@ -12,7 +12,7 @@ import { ButtonList } from './ButtonsCustom';
 import RenderIcons from './RenderIcons';
 
 const ErrorData = ({ error, retry }) => {
-  console.log('error', error);
+  console.log(error);
   const {
     mainContainer,
     container,

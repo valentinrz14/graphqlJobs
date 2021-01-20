@@ -1,7 +1,7 @@
 // Dependencies
 import { gql } from '@apollo/client';
 
-// Queries
+// Queries Fragments
 export const JOB_FRAGMENT = gql`
   fragment JobFragment on Job {
     id
@@ -23,6 +23,13 @@ export const POSTULATES_JOB_FRAGMENT = gql`
     postulate
   }
 `;
+
+export const FAVORITE_JOB_FRAGMENT = gql`
+  fragment FavoriteJobFragment on Job {
+    favorite
+  }
+`;
+// Queries
 export const GET_POSTULATE_JOBS_COUNT = gql`
   {
     postulateJobsCount @client
@@ -31,12 +38,6 @@ export const GET_POSTULATE_JOBS_COUNT = gql`
 export const GET_POSTULATE_JOBS_LIST = gql`
   {
     postulateJobsList @client
-  }
-`;
-
-export const FAVORITE_JOB_FRAGMENT = gql`
-  fragment FavoriteJobFragment on Job {
-    favorite
   }
 `;
 export const GET_FAVORITE_JOBS_COUNT = gql`
@@ -121,8 +122,8 @@ export const ADD_OR_REMOVE_JOB_FROM_FAVORITE = gql`
   }
 `;
 
-export const ADD_OR_REMOVE_JOB_FROM_POSTULATE = gql`
-  mutation AddOrRemoveJobFromPostulate(
+export const ADD_JOB_FROM_POSTULATE = gql`
+  mutation addJobFromPostulate(
     $jobId: ID!
     $title: String!
     $slug: String!
@@ -133,7 +134,7 @@ export const ADD_OR_REMOVE_JOB_FROM_POSTULATE = gql`
     $postedAt: DateTime
     $favorite: Boolean
   ) {
-    addOrRemoveJobFromPostulate(
+    addJobFromPostulate(
       jobId: $jobId
       company: $company
       title: $title

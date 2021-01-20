@@ -1,6 +1,6 @@
 // Dependencies
 import React from 'react';
-import { View, Alert } from 'react-native';
+import { View } from 'react-native';
 import { useMutation } from '@apollo/client';
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
@@ -9,7 +9,7 @@ import { ButtonPostulate } from '../../components/ButtonsCustom';
 import { LoadingIndicator } from '../../components';
 import CustomInput from './CustomInput';
 // Queries
-import { ADD_OR_REMOVE_JOB_FROM_POSTULATE } from '../../graphql/queries';
+import { ADD_JOB_FROM_POSTULATE } from '../../graphql/queries';
 
 export default function FormPostulate({
   id,
@@ -22,21 +22,18 @@ export default function FormPostulate({
   slug,
   navigation,
 }) {
-  const [addOrRemoveJobFromPostulate] = useMutation(
-    ADD_OR_REMOVE_JOB_FROM_POSTULATE,
-    {
-      variables: {
-        jobId: id,
-        company,
-        title,
-        description,
-        countries,
-        cities,
-        postedAt,
-        slug,
-      },
+  const [addJobFromPostulate] = useMutation(ADD_JOB_FROM_POSTULATE, {
+    variables: {
+      jobId: id,
+      company,
+      title,
+      description,
+      countries,
+      cities,
+      postedAt,
+      slug,
     },
-  );
+  });
   const formValidationSchema = yup.object().shape({
     name: yup
       .string()
@@ -71,7 +68,7 @@ export default function FormPostulate({
         repo: '',
       }}
       onSubmit={(values, { setSubmitting }) => {
-        addOrRemoveJobFromPostulate()
+        addJobFromPostulate()
           .then(() =>
             setTimeout(() => {
               setSubmitting(false);
@@ -109,10 +106,7 @@ export default function FormPostulate({
               <LoadingIndicator size="large" />
             </View>
           ) : (
-            <ButtonPostulate
-              _handleOnPress={handleSubmit}
-              disabled={!isValid}
-              btnPostulateStyle={{ marginTop: 10 }}>
+            <ButtonPostulate _handleOnPress={handleSubmit} disabled={!isValid}>
               Enviar
             </ButtonPostulate>
           )}

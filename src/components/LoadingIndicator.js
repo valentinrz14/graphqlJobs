@@ -1,5 +1,7 @@
+// Dependencies
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
+// Colors
 import { REFRESH_CONTROL_COLOR } from '../helpers/colors';
 
 const LoadingIndicator = ({ size, title }) => {
