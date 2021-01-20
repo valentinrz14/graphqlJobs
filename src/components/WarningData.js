@@ -13,7 +13,7 @@ const WarningData = ({ children }) => {
   return (
     <MainContainer>
       <View style={containerNotFindJob}>
-        <RenderIcons name="information-outline" size={140} color={YELLOW} />
+        <RenderIcons name="information-outline" size={100} color={YELLOW} />
         <Text style={title}>{children}</Text>
       </View>
     </MainContainer>
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 10,
-    fontSize: 30,
+    fontSize: 20,
     textAlign: 'center',
     color: BLACK,
   },

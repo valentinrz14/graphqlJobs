@@ -7,4 +7,7 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
+-keep class com.facebook.hermes.unicode.** { *; }
+-keep class com.facebook.jni.** { *; }
+
 # Add any project specific keep options here:

@@ -23,9 +23,18 @@ const JobDetails = ({ route, navigation }) => {
     },
     fetchPolicy: 'cache-and-network',
   });
+
   const handleOnPress = () => {
+    const { id, description, countries, cities, postedAt } = data.job;
     navigation.navigate(FORM_POSTULATE, {
       title: `${company.toUpperCase()} / ${slug}`,
+      id,
+      company,
+      description,
+      countries,
+      cities,
+      postedAt,
+      slug,
     });
   };
   if (error) {
@@ -34,7 +43,6 @@ const JobDetails = ({ route, navigation }) => {
   if (loading && !data) {
     return <LoadingIndicator size="large" title={true} />;
   }
-
   return (
     <MainContainer>
       <RenderJobDetails {...data.job} />

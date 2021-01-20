@@ -3,7 +3,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useQuery } from '@apollo/client';
 // Screens
-import { CompaniesList } from '../screens/companies_list';
+import CompaniesList from '../screens/companies_list';
 import PostulatesList from '../screens/postulates_list';
 import FavoritesList from '../screens/favorites_list';
 // Screens Names
@@ -19,7 +19,10 @@ import RenderIcons from '../components/RenderIcons';
 // Colors
 import { BLUE, BLACK, WHITE } from '../helpers/colors';
 // API
-import { GET_FAVORITE_JOBS_COUNT } from '../graphql/queries';
+import {
+  GET_FAVORITE_JOBS_COUNT,
+  GET_POSTULATE_JOBS_COUNT,
+} from '../graphql/queries';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,10 +32,10 @@ const optionsTabBar = (name, route, count) => ({
     <RenderIcons name={name} size={size + 5} color={color} />
   ),
   title: getHeaderTitleBottomTab(route),
-  // tabBarBadge: 1,
 });
 const BottomTabs = () => {
   const { data } = useQuery(GET_FAVORITE_JOBS_COUNT);
+  const { data: postulate } = useQuery(GET_POSTULATE_JOBS_COUNT);
   return (
     <Tab.Navigator
       initialRouteName={COMPANIES_SCREEN}
@@ -51,7 +54,9 @@ const BottomTabs = () => {
       <Tab.Screen
         name={POSTULATES_SCREEN}
         component={PostulatesList}
-        options={({ route }) => optionsTabBar('briefcase', route)}
+        options={({ route }) =>
+          optionsTabBar('briefcase', route, postulate.postulateJobsCount)
+        }
       />
       <Tab.Screen
         name={FAVORITES_SCREEN}

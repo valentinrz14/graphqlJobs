@@ -52,7 +52,16 @@ const RenderJobDetails = ({
       Alert.alert(`Don't know how to open this URL: ${websiteUrl}`);
     }
   });
-
+  const handleOnPressTwitterLink = () => {
+    if (twitter !== null) {
+      const url = `https://twitter.com/${twitter}`;
+      Linking.openURL(url)
+        .then((data) => {})
+        .catch(() => {
+          Alert.alert('Something went wrong');
+        });
+    }
+  };
   const {
     mainContainer,
     containerImage,
@@ -98,9 +107,7 @@ const RenderJobDetails = ({
           {websiteUrl ? (
             <View style={[content, { marginTop: 0 }]}>
               <RenderIcons name="earth" color={BLUE} />
-              <Text
-                style={[titles, { color: BLUE, fontWeight: 'bold' }]}
-                onPress={handlePress}>
+              <Text style={titlesOnPress} onPress={handlePress}>
                 {websiteUrl}
               </Text>
             </View>
@@ -108,7 +115,7 @@ const RenderJobDetails = ({
           {twitter ? (
             <View style={[content, { marginBottom: 0 }]}>
               <RenderIcons name="twitter" color={BLUE} />
-              <Text style={titles}>
+              <Text style={titlesOnPress} onPress={handleOnPressTwitterLink}>
                 {replaceTwitter.indexOf('@') === -1
                   ? `@${replaceTwitter}`
                   : replaceTwitter}
@@ -176,4 +183,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: BLACK,
   },
+});
+
+const titlesOnPress = StyleSheet.compose(styles.titles, {
+  color: BLUE,
+  fontWeight: 'bold',
 });

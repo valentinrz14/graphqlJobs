@@ -13,7 +13,7 @@ import { GREY_DEFAULT, WHITE } from '../../helpers/colors';
 // Template
 import MainContainer from '../../template/MainContainer';
 
-export function CompaniesList(props) {
+export default function CompaniesList(props) {
   const { loading, error, data, refetch } = useQuery(GET_ALL_COMPANIES, {
     fetchPolicy: 'cache-and-network',
   });

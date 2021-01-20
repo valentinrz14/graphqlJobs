@@ -29,6 +29,7 @@ export default function JobsList({ route, navigation }) {
   return (
     <MainContainer>
       <FlatList
+        contentContainerStyle={{ paddingVertical: 10 }}
         data={jobs}
         refreshing={loading}
         onRefresh={() => refetch}

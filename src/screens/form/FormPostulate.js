@@ -1,14 +1,42 @@
 // Dependencies
 import React from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
+import { useMutation } from '@apollo/client';
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
 // Components
 import { ButtonPostulate } from '../../components/ButtonsCustom';
-import CustomInput from './CustomInput';
 import { LoadingIndicator } from '../../components';
+import CustomInput from './CustomInput';
+// Queries
+import { ADD_OR_REMOVE_JOB_FROM_POSTULATE } from '../../graphql/queries';
 
-export default function FormPostulate() {
+export default function FormPostulate({
+  id,
+  company,
+  title,
+  description,
+  countries,
+  cities,
+  postedAt,
+  slug,
+  navigation,
+}) {
+  const [addOrRemoveJobFromPostulate] = useMutation(
+    ADD_OR_REMOVE_JOB_FROM_POSTULATE,
+    {
+      variables: {
+        jobId: id,
+        company,
+        title,
+        description,
+        countries,
+        cities,
+        postedAt,
+        slug,
+      },
+    },
+  );
   const formValidationSchema = yup.object().shape({
     name: yup
       .string()
@@ -25,7 +53,14 @@ export default function FormPostulate() {
       .string()
       .email('Porfavor ingrese su correo electronico')
       .required('Correo electronico requerido'),
+    repo: yup
+      .string()
+      .matches(
+        /(\w+:\/\/)(.+@)*([\w\d\.]+)(:[\d]+){0,1}\/*(.*)/g,
+        'Ingrese un repositorio valido',
+      ),
   });
+
   return (
     <Formik
       validationSchema={formValidationSchema}
@@ -33,12 +68,17 @@ export default function FormPostulate() {
         name: '',
         email: '',
         phoneNumber: '',
+        repo: '',
       }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
-        setTimeout(() => {
-          setSubmitting(false);
-        }, 1000);
+        addOrRemoveJobFromPostulate()
+          .then(() =>
+            setTimeout(() => {
+              setSubmitting(false);
+              return navigation.goBack();
+            }, 1000),
+          )
+          .catch((err) => console.log(err));
       }}>
       {({ handleSubmit, isValid, isSubmitting }) => (
         <>
@@ -58,6 +98,11 @@ export default function FormPostulate() {
             name="phoneNumber"
             placeholder="Numero de Celular"
             keyboardType="numeric"
+          />
+          <Field
+            component={CustomInput}
+            name="repo"
+            placeholder="Repositorio de proyectos (Opcional)"
           />
           {isSubmitting ? (
             <View style={{ marginTop: 30 }}>

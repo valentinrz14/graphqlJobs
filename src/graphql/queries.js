@@ -9,6 +9,7 @@ export const JOB_FRAGMENT = gql`
     title
     postedAt
     description
+    postulate @client
     countries {
       name
     }
@@ -17,13 +18,27 @@ export const JOB_FRAGMENT = gql`
     }
   }
 `;
+export const POSTULATES_JOB_FRAGMENT = gql`
+  fragment PostulatesJobsList on Job {
+    postulate
+  }
+`;
+export const GET_POSTULATE_JOBS_COUNT = gql`
+  {
+    postulateJobsCount @client
+  }
+`;
+export const GET_POSTULATE_JOBS_LIST = gql`
+  {
+    postulateJobsList @client
+  }
+`;
 
 export const FAVORITE_JOB_FRAGMENT = gql`
   fragment FavoriteJobFragment on Job {
     favorite
   }
 `;
-
 export const GET_FAVORITE_JOBS_COUNT = gql`
   {
     favoriteJobsCount @client
@@ -34,6 +49,7 @@ export const GET_FAVORITE_JOBS_LIST = gql`
     favoriteJobsList @client
   }
 `;
+
 export const GET_ALL_COMPANIES = gql`
   query getAllCompanies {
     companies {
@@ -101,6 +117,32 @@ export const ADD_OR_REMOVE_JOB_FROM_FAVORITE = gql`
       cities: $cities
       postedAt: $postedAt
       slug: $slug
+    ) @client
+  }
+`;
+
+export const ADD_OR_REMOVE_JOB_FROM_POSTULATE = gql`
+  mutation AddOrRemoveJobFromPostulate(
+    $jobId: ID!
+    $title: String!
+    $slug: String!
+    $company: Array
+    $description: String
+    $countries: Array
+    $cities: Array
+    $postedAt: DateTime
+    $favorite: Boolean
+  ) {
+    addOrRemoveJobFromPostulate(
+      jobId: $jobId
+      company: $company
+      title: $title
+      description: $description
+      countries: $countries
+      cities: $cities
+      postedAt: $postedAt
+      slug: $slug
+      favorte: $favorite
     ) @client
   }
 `;

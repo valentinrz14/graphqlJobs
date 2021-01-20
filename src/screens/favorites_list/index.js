@@ -1,5 +1,5 @@
 // Dependencies
-import React from 'react';
+import React, { createRef } from 'react';
 import { FlatList } from 'react-native';
 import { useQuery } from '@apollo/client';
 // Components
@@ -10,11 +10,20 @@ import RenderJobsList from '../job_list/RenderJobsList';
 import { GET_FAVORITE_JOBS_LIST } from '../../graphql/queries';
 // Template
 import MainContainer from '../../template/MainContainer';
+import { ButtonUpList } from '../../components/ButtonsCustom';
 
 const FavoritesList = ({ navigation }) => {
   const { data, loading, error, refetch } = useQuery(GET_FAVORITE_JOBS_LIST, {
     fetchPolicy: 'cache-and-network',
   });
+
+  const { favoriteJobsList } = data;
+
+  let flatListRef = createRef();
+
+  const upButtonHandler = () => {
+    flatListRef.scrollToOffset({ animated: true, offset: 0 });
+  };
 
   if (loading) {
     return <LoadingIndicator size="large" title={true} />;
@@ -23,7 +32,7 @@ const FavoritesList = ({ navigation }) => {
     return <ErrorData error={error} retry={refetch} />;
   }
 
-  if (data.favoriteJobsList.length === 0) {
+  if (favoriteJobsList.length === 0) {
     return (
       <WarningData>
         No a seleccionado ninguna oferta laboral como favorita
@@ -34,13 +43,17 @@ const FavoritesList = ({ navigation }) => {
   return (
     <MainContainer>
       <FlatList
+        ref={(ref) => (flatListRef = ref)}
         contentContainerStyle={{ paddingHorizontal: 5 }}
-        data={data.favoriteJobsList}
+        data={favoriteJobsList}
         refreshing={loading}
         onRefresh={() => refetch}
         renderItem={({ item }) => <RenderJobsList {...item} {...navigation} />}
         keyExtractor={({ id }) => id}
       />
+      {favoriteJobsList.length > 10 ? (
+        <ButtonUpList upButtonHandler={upButtonHandler} />
+      ) : null}
     </MainContainer>
   );
 };

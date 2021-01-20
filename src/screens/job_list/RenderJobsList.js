@@ -2,7 +2,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useMutation } from '@apollo/client';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 // Components
 import { ButtonList } from '../../components/ButtonsCustom';
 import RenderIcons from '../../components/RenderIcons';
@@ -26,6 +25,7 @@ const RenderJobsList = ({
   slug,
   navigate,
   favorite,
+  activated,
 }) => {
   const { name } = company;
   const [addOrRemoveJobFromFavorite] = useMutation(
@@ -43,7 +43,6 @@ const RenderJobsList = ({
       },
     },
   );
-
   const {
     container,
     contentFavorite,
@@ -62,19 +61,13 @@ const RenderJobsList = ({
   };
   const timestamp = useTimeAgo(postedAt);
 
-  const addFavorite = async () => {
-    await addOrRemoveJobFromFavorite();
-    // await AsyncStorage.setItem(
-    //   '@FAVORITES_STORAGE',
-    //   JSON.stringify({ name, slug }),
-    // );
-  };
+  const addFavorite = async () => await addOrRemoveJobFromFavorite();
   return (
     <View style={container}>
       <ButtonList btnListStyle={btn} _handleOnPress={_handleOnPress}>
         <View style={contentFavorite}>
           <Text style={titleStyle}>{title}</Text>
-          <ButtonList _handleOnPress={addFavorite}>
+          <ButtonList _handleOnPress={addFavorite} disabled={activated}>
             <RenderIcons
               name={favorite ? 'heart' : 'heart-outline'}
               size={30}
@@ -82,16 +75,16 @@ const RenderJobsList = ({
             />
           </ButtonList>
         </View>
-        <Text numberOfLines={3} style={{ marginVertical: 5, fontSize: 17 }}>
+        <Text numberOfLines={3} style={{ marginVertical: 5, fontSize: 15 }}>
           {description}
         </Text>
         <View style={content}>
           <View style={contentData}>
-            <RenderIcons name="calendar-month-outline" color={RED} />
+            <RenderIcons name="calendar-month-outline" color={RED} size={23} />
             <Text style={subTitle}>{timestamp}</Text>
           </View>
-          <View style={contentData}>
-            <RenderIcons name="map-marker" color={RED} />
+          <View style={[contentData, { width: '60%' }]}>
+            <RenderIcons name="map-marker" color={RED} size={23} />
             <Text style={subTitle}>
               {useValidateCountries(countries, cities)}
             </Text>
@@ -125,6 +118,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   titleStyle: {
+    flex: 1,
     fontSize: 20,
     color: BLUE,
     fontWeight: '500',
@@ -138,10 +132,10 @@ const styles = StyleSheet.create({
   contentData: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '50%',
+    width: '40%',
   },
   subTitle: {
-    fontSize: 17,
+    fontSize: 13,
     marginLeft: 5,
   },
 });

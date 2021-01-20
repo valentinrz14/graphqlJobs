@@ -6,8 +6,14 @@ import { BLACK, BLUE, WHITE } from '../helpers/colors';
 // Icons
 import RenderIcons from './RenderIcons';
 
-export const ButtonList = ({ children, _handleOnPress, btnListStyle }) => (
+export const ButtonList = ({
+  children,
+  _handleOnPress,
+  btnListStyle,
+  disabled,
+}) => (
   <TouchableOpacity
+    disabled={disabled}
     style={[styles.btnList, btnListStyle]}
     onPress={_handleOnPress}>
     {children}
