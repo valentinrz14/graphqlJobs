@@ -8,4 +8,13 @@ echo por Valentin Rodriguez
 
 ## Dependencias Usadas
 
-## "@apollo/client","react-native-async-storage/async-storage","react-native-community/masked-view","react-navigation","apollo-cache-persist","formik","graphql","react-native","react-native-elements","react-native-vector-icons","yup"
+## "@apollo/client","react-native-async-storage/async-storage","react-native-community/masked-view","react-navigation","apollo-cache-persist","formik","graphql","react-native","react-native-elements","react-native-vector-icons","yup", "moment"
+
+## Navegacion
+
+## -companies_list -jobsList -job -form
+
+## -postulates_list -job -form
+
+## -favorites_list -job -form
+
