@@ -6,12 +6,14 @@ import { useMutation } from '@apollo/client';
 import { ButtonList } from '../../components/ButtonsCustom';
 import RenderIcons from '../../components/RenderIcons';
 // Hooks
-import { BLACK, BLUE, RED, WHITE } from '../../helpers/colors';
 import useTimeAgo from '../../helpers/useTimeAgo';
 import { SHADOW_OFF_SET } from '../../helpers/useStyles';
 import { useValidateCountries } from '../../helpers/useValidate';
+// Colors
+import { BLACK, BLUE, RED, WHITE } from '../../helpers/colors';
 // Names Navigation
 import { JOB_DETAILS_SCREEN } from '../../navigation/navigation.names';
+// Queries
 import { ADD_OR_REMOVE_JOB_FROM_FAVORITE } from '../../graphql/queries';
 
 const RenderJobsList = ({

@@ -85,16 +85,12 @@ const resolvers = {
           },
         });
       } else {
-        let data = true;
-        if (favoriteJobsList.length > 0) {
-          data = favoriteJobsList.map(({ id }) => {
-            if (id === newFavoriteList.id) {
-              return true;
-            }
-          });
-        }
-        if (data) {
-          client.writeQuery({
+        const filterFavoriteJobsList = favoriteJobsList.find(
+          ({ id }) => newFavoriteList.id === id,
+        );
+
+        if (filterFavoriteJobsList === undefined) {
+          return client.writeQuery({
             query: GET_FAVORITE_JOBS_LIST,
             data: {
               favoriteJobsList: [...favoriteJobsList, newFavoriteList],
@@ -164,24 +160,20 @@ const resolvers = {
         });
         return Alert.alert('Exito al postularse.', 'Suerte!');
       };
-      if (postulateJobsList.length !== 0) {
-        const postulateFilter = postulateJobsList.filter(
-          ({ id }) => id === newPostulateList.id,
+      const postulateFilter = postulateJobsList.find(
+        ({ id }) => id === newPostulateList.id,
+      );
+      if (postulateFilter !== undefined) {
+        client.writeQuery({
+          query: GET_POSTULATE_JOBS_COUNT,
+          data: {
+            postulateJobsCount: postulateJobsCount,
+          },
+        });
+        return Alert.alert(
+          '!Oops',
+          'Ya se encuentra postulado para esta oferta laboral',
         );
-        if (postulateFilter.length !== 0) {
-          client.writeQuery({
-            query: GET_POSTULATE_JOBS_COUNT,
-            data: {
-              postulateJobsCount: postulateJobsCount,
-            },
-          });
-          return Alert.alert(
-            '!Oops',
-            'Ya se encuentra postulado para esta oferta laboral',
-          );
-        } else {
-          return renderAlert();
-        }
       } else {
         return renderAlert();
       }

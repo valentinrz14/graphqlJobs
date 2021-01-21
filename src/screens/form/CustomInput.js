@@ -1,3 +1,4 @@
+// Dependencies
 import React from 'react';
 import { Text, TextInput, StyleSheet } from 'react-native';
 
@@ -15,6 +16,8 @@ const CustomInput = (props) => {
       <TextInput
         style={[textInput, hasError && errorInput]}
         value={value}
+        autoCapitalize="none"
+        autoCorrect={false}
         onChangeText={(text) => onChange(name)(text)}
         onBlur={() => {
           setFieldTouched(name);
