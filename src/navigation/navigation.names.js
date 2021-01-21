@@ -1,3 +1,4 @@
+// Screen Names
 export const COMPANIES_SCREEN = 'CompaniesListScreen';
 export const JOBS_SCREEN = 'JobsListScreen';
 export const JOB_DETAILS_SCREEN = 'JobDetailsScreen';

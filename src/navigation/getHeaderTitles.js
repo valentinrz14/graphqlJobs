@@ -1,9 +1,12 @@
+// Dependencies
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+// Screen Names
 import {
   COMPANIES_SCREEN,
   FAVORITES_SCREEN,
   POSTULATES_SCREEN,
 } from './navigation.names';
+// Screen Titles
 import {
   TITLE_COMPANIES,
   TITLE_FAVORITES,

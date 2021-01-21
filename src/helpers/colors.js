@@ -1,3 +1,4 @@
+// Colors
 export const BLACK = '#000';
 export const WHITE = '#FAFAFA';
 export const BACKGROUND = '#F1F1F1';

@@ -1,3 +1,4 @@
+// Dependencies
 import moment from 'moment';
 
 export default function useTimeAgo(timestamp) {

@@ -151,15 +151,6 @@ const resolvers = {
       const { postulateJobsList } = client.readQuery({
         query: GET_POSTULATE_JOBS_LIST,
       });
-      const renderAlert = () => {
-        client.writeQuery({
-          query: GET_POSTULATE_JOBS_LIST,
-          data: {
-            postulateJobsList: [...postulateJobsList, newPostulateList],
-          },
-        });
-        return Alert.alert('Exito al postularse.', 'Suerte!');
-      };
       const postulateFilter = postulateJobsList.find(
         ({ id }) => id === newPostulateList.id,
       );
@@ -175,7 +166,13 @@ const resolvers = {
           'Ya se encuentra postulado para esta oferta laboral',
         );
       } else {
-        return renderAlert();
+        client.writeQuery({
+          query: GET_POSTULATE_JOBS_LIST,
+          data: {
+            postulateJobsList: [...postulateJobsList, newPostulateList],
+          },
+        });
+        return Alert.alert('Exito al postularse.', 'Suerte!');
       }
     },
   },

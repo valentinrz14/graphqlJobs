@@ -1,3 +1,4 @@
+// Styles Globals
 export const SHADOW_OFF_SET = {
   shadowOffset: {
     width: 3,
