@@ -1,5 +1,6 @@
 // Dependencies
 import React, { useEffect, useState } from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ApolloProvider } from '@apollo/client';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,6 +16,7 @@ import StackNavigator from './StackNavigator';
 const RootNavigation = () => {
   const [newClient, setNewClient] = useState(null);
   useEffect(() => {
+    SplashScreen.hide();
     persistCache({
       cache,
       storage: AsyncStorage,
