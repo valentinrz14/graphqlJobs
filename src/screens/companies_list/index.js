@@ -23,7 +23,6 @@ export default function CompaniesList(props) {
   if (loading && !data) {
     return <LoadingIndicator size="large" title={true} />;
   }
-  console.log('data', data);
   let flatListRef = createRef();
   const upButtonHandler = () => {
     flatListRef.scrollToOffset({ animated: true, offset: 0 });

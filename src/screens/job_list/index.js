@@ -14,14 +14,14 @@ import { GET_ALL_JOBS } from '../../graphql/queries';
 export default function JobsList({ route, navigation }) {
   const { id } = route.params;
   const { data, loading, error, refetch } = useQuery(GET_ALL_JOBS);
-
-  if (loading) {
+  if (loading && !data) {
     return <LoadingIndicator size="large" title={true} />;
   }
   if (error) {
     return <ErrorData error={error} retry={refetch} />;
   }
   const jobs = data.jobs.filter(({ company }) => company.id === id);
+
   if (jobs.length === 0) {
     return <WarningData>No se han encontrado busquedas laborales</WarningData>;
   }

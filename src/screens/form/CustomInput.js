@@ -1,6 +1,8 @@
 // Dependencies
 import React from 'react';
 import { Text, TextInput, StyleSheet } from 'react-native';
+// Colors
+import { GREY_DEFAULT, RED, WHITE } from '../../helpers/colors';
 
 const CustomInput = (props) => {
   const {
@@ -37,18 +39,18 @@ const styles = StyleSheet.create({
     height: 45,
     width: '100%',
     marginVertical: 15,
-    backgroundColor: 'white',
-    borderColor: 'gray',
+    backgroundColor: WHITE,
+    borderColor: GREY_DEFAULT,
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 10,
   },
   errorText: {
     paddingLeft: 8,
     fontSize: 15,
-    color: 'red',
+    color: RED,
   },
   errorInput: {
-    borderColor: 'red',
+    borderColor: RED,
   },
 });
 

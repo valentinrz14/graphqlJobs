@@ -24,8 +24,15 @@ const JobDetails = ({ route, navigation }) => {
     fetchPolicy: 'cache-and-network',
   });
 
+  if (error) {
+    return <ErrorData error={error} />;
+  }
+  if (loading && !data) {
+    return <LoadingIndicator size="large" title={true} />;
+  }
+
+  const { id, description, countries, cities, postedAt } = data.job;
   const handleOnPress = () => {
-    const { id, description, countries, cities, postedAt } = data.job;
     navigation.navigate(FORM_POSTULATE, {
       title: `${company.toUpperCase()} / ${slug}`,
       id,
@@ -37,12 +44,7 @@ const JobDetails = ({ route, navigation }) => {
       slug,
     });
   };
-  if (error) {
-    return <ErrorData error={error} />;
-  }
-  if (loading && !data) {
-    return <LoadingIndicator size="large" title={true} />;
-  }
+
   return (
     <MainContainer>
       <RenderJobDetails {...data.job} />

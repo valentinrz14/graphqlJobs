@@ -1,6 +1,7 @@
 // Dependencies
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+// Colors
 import { WHITE, BLACK, BLUE } from '../../helpers/colors';
 // Navigation Names
 import { JOBS_SCREEN } from '../../navigation/navigation.names';
@@ -10,14 +11,11 @@ import RenderImage from '../../components/RenderImage';
 
 const RenderCompaniesList = ({ id, name, logoUrl, websiteUrl, navigation }) => {
   const { container, contentImage, textContainer, title, website } = styles;
-  const handleOnPress = () => {
-    navigation.navigate(JOBS_SCREEN, { id, name });
-  };
+  const handleOnPress = () => navigation.navigate(JOBS_SCREEN, { id, name });
+
   return (
     <View style={container}>
-      <ButtonList
-        btnListStyle={[container, { alignItems: 'center' }]}
-        _handleOnPress={handleOnPress}>
+      <ButtonList btnListStyle={container} _handleOnPress={handleOnPress}>
         <RenderImage
           foto={logoUrl}
           size={80}

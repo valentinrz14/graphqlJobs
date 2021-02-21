@@ -17,22 +17,20 @@ const FavoritesList = ({ navigation }) => {
     fetchPolicy: 'cache-and-network',
   });
 
-  const { favoriteJobsList } = data;
-
   let flatListRef = createRef();
 
   const upButtonHandler = () => {
     flatListRef.scrollToOffset({ animated: true, offset: 0 });
   };
 
-  if (loading) {
+  if (loading && !data) {
     return <LoadingIndicator size="large" title={true} />;
   }
   if (error) {
     return <ErrorData error={error} retry={refetch} />;
   }
 
-  if (favoriteJobsList.length === 0) {
+  if (data.favoriteJobsList.length === 0) {
     return (
       <WarningData>
         No a seleccionado ninguna oferta laboral como favorita
@@ -45,13 +43,13 @@ const FavoritesList = ({ navigation }) => {
       <FlatList
         ref={(ref) => (flatListRef = ref)}
         contentContainerStyle={{ paddingHorizontal: 5 }}
-        data={favoriteJobsList}
+        data={data.favoriteJobsList}
         refreshing={loading}
         onRefresh={() => refetch}
         renderItem={({ item }) => <RenderJobsList {...item} {...navigation} />}
         keyExtractor={({ id }) => id}
       />
-      {favoriteJobsList.length > 10 ? (
+      {data.favoriteJobsList.length > 10 ? (
         <ButtonUpList upButtonHandler={upButtonHandler} />
       ) : null}
     </MainContainer>

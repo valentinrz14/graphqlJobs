@@ -69,6 +69,7 @@ const RenderJobDetails = ({
     titleName,
     container,
     content,
+    customContent,
     titles,
     line,
     descriptionStyle,
@@ -89,7 +90,7 @@ const RenderJobDetails = ({
           <RenderIcons name="calendar-month-outline" color={RED} />
           <Text style={titles}>{useTimeAgo(postedAt)}</Text>
         </View>
-        <View style={[content, { marginBottom: 0 }]}>
+        <View style={[content, customContent]}>
           <RenderIcons name="map-marker" color={RED} />
           <Text style={titles}>{useValidateCountries(countries, cities)}</Text>
         </View>
@@ -98,7 +99,7 @@ const RenderJobDetails = ({
           <RenderIcons name="clock-time-three-outline" color={BLACK} />
           <Text style={titles}>{commitment.title}</Text>
         </View>
-        <View style={[content, { marginBottom: 0 }]}>
+        <View style={[content, customContent]}>
           <RenderIcons name="home-variant-outline" color={BLACK} />
           <Text style={titles}>{useValidateRemotes(remotes)}</Text>
         </View>
@@ -113,7 +114,7 @@ const RenderJobDetails = ({
             </View>
           ) : null}
           {twitter ? (
-            <View style={[content, { marginBottom: 0 }]}>
+            <View style={[content, customContent]}>
               <RenderIcons name="twitter" color={BLUE} />
               <Text style={titlesOnPress} onPress={handleOnPressTwitterLink}>
                 {replaceTwitter.indexOf('@') === -1
@@ -169,6 +170,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 8,
+  },
+  customContent: {
+    marginBottom: 0,
   },
   titles: {
     color: TITLES,
